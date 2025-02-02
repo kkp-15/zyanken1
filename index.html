@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>オリジナルじゃんけん</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #fef4f4;
+            padding: 20px;
+        }
+        h1 {
+            color: #ff4500;
+        }
+        .box {
+            padding: 20px;
+            border: 3px solid #ff4500;
+            border-radius: 10px;
+            background-color: #fffacd;
+            display: inline-block;
+        }
+        .choices {
+            margin: 20px;
+        }
+        .choices img {
+            width: 100px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        .choices img:hover {
+            opacity: 0.7;
+        }
+        .result {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #ff4500;
+        }
+        .display {
+            margin: 20px;
+        }
+        .display img {
+            width: 150px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🎨 オリジナルじゃんけん 🎨</h1>
+    <div class="box">
+        <p>好きな手をえらんでね！</p>
+        <div class="choices">
+            <img src="img/goo.png" alt="グー" onclick="playJanken('グー')">
+            <img src="img/choki.png" alt="チョキ" onclick="playJanken('チョキ')">
+            <img src="img/pa.png" alt="パー" onclick="playJanken('パー')">
+        </div>
+        <div class="display">
+            <p>あなた:</p>
+            <img id="playerHand" src="img/question.png" alt="あなたの手">
+            <p>コンピュータ:</p>
+            <img id="computerHand" src="img/question.png" alt="相手の手">
+        </div>
+        <p id="result" class="result">じゃんけんしよう！</p>
+    </div>
+
+    <script>
+        function playJanken(playerChoice) {
+            const choices = ["グー", "チョキ", "パー"];
+            const images = { "グー": "img/goo.png", "チョキ": "img/choki.png", "パー": "img/pa.png" };
+            const computerChoice = choices[Math.floor(Math.random() * choices.length)];
+            let resultMessage;
+
+            document.getElementById("playerHand").src = images[playerChoice];
+            document.getElementById("computerHand").src = images[computerChoice];
+
+            if (playerChoice === computerChoice) {
+                resultMessage = "🤝 あいこ！";
+            } else if (
+                (playerChoice === "グー" && computerChoice === "チョキ") ||
+                (playerChoice === "チョキ" && computerChoice === "パー") ||
+                (playerChoice === "パー" && computerChoice === "グー")
+            ) {
+                resultMessage = "🎉 勝ち！";
+            } else {
+                resultMessage = "💦 負け...";
+            }
+
+            document.getElementById("result").textContent = resultMessage;
+        }
+    </script>
+
+</body>
+</html>
